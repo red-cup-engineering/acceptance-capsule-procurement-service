@@ -1,5 +1,5 @@
 {
-  "id": "ni:///sha-256;C0Tlmy2m7qfnbQ5j9roFKx4emADqMmYos68GzwAxEIk",
+  "id": "ni:///sha-256;OEHolY2IUgjHL90ENmkEF4XJF5tLbkotigliPCYUGrU",
   "type": "CapabilityCellManifest",
   "version": 2,
   "sku": "ni:///sha-256;h-ILEl26XaDbovYOPkdDAN110Vf_P1Flvhgub00Mh-A",
@@ -9,6 +9,9 @@
     "github": {
       "repository": "https://github.com/red-cup-engineering/acceptance-capsule-procurement-service",
       "identity": "https://raw.githubusercontent.com/red-cup-engineering/acceptance-capsule-procurement-service/main/content/capcell/identity.json"
+    },
+    "activitypub": {
+      "actor": "https://bare-cedar-fog.561.group/actors/acceptance-capsule-procurement"
     },
     "a2a": {
       "agentCard": "https://bare-cedar-fog.561.group/a2a/acceptance-capsule-procurement/.well-known/agent-card.json"

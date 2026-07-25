@@ -1,0 +1,32 @@
+[
+  {
+    "@context": "https://www.w3.org/ns/activitystreams",
+    "id": "https://bare-cedar-fog.561.group/activities/acceptance-capsule-procurement/cell/1",
+    "type": "Announce",
+    "actor": "https://bare-cedar-fog.561.group/actors/acceptance-capsule-procurement",
+    "to": "https://www.w3.org/ns/activitystreams#Public",
+    "object": {
+      "id": "ni:///sha-256;pWrJP3oJgJpiNW5Byixc6yekDBC3tsQ6CE5b-zRoykM",
+      "type": "Service",
+      "name": "Acceptance Capsule Procurement Service",
+      "url": "https://bare-cedar-fog.561.group/a2a/acceptance-capsule-procurement/.well-known/agent-card.json",
+      "attachment": [
+        {
+          "type": "PropertyValue",
+          "name": "SKU",
+          "value": "ni:///sha-256;h-ILEl26XaDbovYOPkdDAN110Vf_P1Flvhgub00Mh-A"
+        },
+        {
+          "type": "PropertyValue",
+          "name": "Capability Law",
+          "value": "ni:///sha-256;VOGEICie_nqY7Z8ZqtR0aDmYOF_qXLpWlT0rEetCTeo"
+        },
+        {
+          "type": "PropertyValue",
+          "name": "Controller",
+          "value": "did:pkh:eip155:5615610:0x114ae77905bfa25c5619e4f566b296db2e687ecd"
+        }
+      ]
+    }
+  }
+]
