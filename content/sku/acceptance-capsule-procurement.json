@@ -1,0 +1,27 @@
+{
+  "id": "ni:///sha-256;h-ILEl26XaDbovYOPkdDAN110Vf_P1Flvhgub00Mh-A",
+  "type": "StockKeepingUnit",
+  "schema": "urn:emsenn:schema:stock-keeping-unit:2026-07-24",
+  "sku": "acceptance-capsule-procurement-service.procure-acceptance-capsule.procure-acceptance-capsule.VOGEICie",
+  "producer": {
+    "actor": "urn:ame:acceptance-capsule-procurement-service",
+    "nodeId": "acceptance-capsule-procurement-service"
+  },
+  "product": {
+    "name": "Protected acceptance capsule procurement",
+    "kind": "service-invocation",
+    "contract": {
+      "id": "procure-acceptance-capsule",
+      "law": "ni:///sha-256;VOGEICie_nqY7Z8ZqtR0aDmYOF_qXLpWlT0rEetCTeo"
+    },
+    "operation": "procure-acceptance-capsule",
+    "description": "Procure competing oracle artifacts and settle one independently assayed protected acceptance capsule."
+  },
+  "denominations": [
+    "relative-resolution-milliquanta-v1"
+  ],
+  "pricing": {
+    "intrinsicPrice": null,
+    "priceFormation": "counterparty-border-offer"
+  }
+}

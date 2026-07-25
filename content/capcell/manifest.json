@@ -1,0 +1,27 @@
+{
+  "id": "ni:///sha-256;hmgwqixcEOCpkn4E1GdYcut4XY9evExkYm3UXqPIUXs",
+  "type": "CapabilityCellManifest",
+  "version": 2,
+  "sku": "ni:///sha-256;h-ILEl26XaDbovYOPkdDAN110Vf_P1Flvhgub00Mh-A",
+  "capability": "ni:///sha-256;VOGEICie_nqY7Z8ZqtR0aDmYOF_qXLpWlT0rEetCTeo",
+  "controller": "did:pkh:eip155:5615610:0x114ae77905bfa25c5619e4f566b296db2e687ecd",
+  "faces": {
+    "github": {
+      "repository": "https://github.com/red-cup-engineering/acceptance-capsule-procurement-service",
+      "identity": "https://raw.githubusercontent.com/red-cup-engineering/acceptance-capsule-procurement-service/main/content/capcell/identity.json"
+    },
+    "activitypub": {
+      "actor": "https://bare-cedar-fog.561.group/actors/acceptance-capsule-procurement"
+    },
+    "a2a": {
+      "agentCard": "https://bare-cedar-fog.561.group/a2a/acceptance-capsule-procurement/.well-known/agent-card.json"
+    },
+    "x402": {
+      "offer": "https://bare-cedar-fog.561.group/x402/acceptance-capsule-procurement/offer",
+      "invoke": "https://bare-cedar-fog.561.group/x402/acceptance-capsule-procurement/invoke"
+    },
+    "evm": {
+      "account": "eip155:5615610:0x114ae77905bfa25c5619e4f566b296db2e687ecd"
+    }
+  }
+}
