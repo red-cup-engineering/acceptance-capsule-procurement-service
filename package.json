@@ -1,0 +1,46 @@
+{
+  "name": "@emsenn/acceptance-capsule-procurement-service",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Sovereign die that procures competing oracle artifacts and settles one protected acceptance capsule.",
+  "exports": {
+    ".": "./src/client.mjs",
+    "./client": "./src/client.mjs"
+  },
+  "scripts": {
+    "check": "node --check src/procurement.mjs && node --check src/market-client.mjs && node --check src/protocol.mjs && node --check src/client.mjs && node --check src/law.mjs && node --check bin/execute-a2a-task.mjs && node --check bin/server.mjs",
+    "test": "node --test test/*.test.mjs",
+    "verify": "npm run check && npm test"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@a2a-js/sdk": "1.0.0-beta.0",
+    "@emsenn/a2a-contracted-agent-service": "file:../../../web-services-section/services/a2a-services-section/services/a2a-contracted-agent-service",
+    "@emsenn/a2a-rmn-part-service": "file:../../../web-services-section/services/a2a-services-section/services/a2a-rmn-part-service",
+    "@emsenn/a2a-rmn-task-client-service": "file:../../../web-services-section/services/a2a-services-section/services/a2a-rmn-task-client-service",
+    "@emsenn/inference-work-lot-service": "file:../../../../../../../board-of-directors/services/executive-office/services/working-services-section/services/inference-work-lot-service",
+    "@emsenn/protected-acceptance-service": "file:../protected-acceptance-service",
+    "@emsenn/rmn-semantic-conformance": "file:../../../../../lenticule-science/services/obsmetrological-services-section/services/rmn-semantic-conformance",
+    "@emsenn/rwil-rdf-services": "file:../../../../../lenticule-science/services/obsmetrological-services-section/services/rwil-rdf-services"
+  },
+  "x-agentic-metro-enterprise": {
+    "node-id": "acceptance-capsule-procurement-service",
+    "actor": "urn:ame:acceptance-capsule-procurement-service",
+    "organizational-kind": "micro-enterprise",
+    "owners": [
+      "software-development-services-section"
+    ],
+    "admission": "one canonical RMN procurement request with bounded evidence, behavioral vectors, price bound, and no customer-selected supplier",
+    "refusal": "pinned supplier, unresolved vector shard, unbounded context, noncanonical carrier, failed protected-acceptance assay, implementation, or customer acceptance",
+    "operation-catalog": {
+      "procure-acceptance-capsule": {
+        "contract": "content/contracts/procure-acceptance-capsule.rml",
+        "protocol": "A2A 1.0",
+        "legacyCompatibility": false
+      }
+    }
+  }
+}

@@ -1,0 +1,8 @@
+#lang rmn/v2
+(map
+  ("type" "AcceptanceCapsuleProcurementLaw")
+  ("version" 2)
+  ("precondition" "One canonical RMN request names bounded context, exact behavioral vectors, artifact lanes, a price bound, and no customer-selected supplier.")
+  ("operation" "Declare the complete finite supplier competition before dispatch; open all typed inference lots concurrently through the independently owned market; retain every refusal and settlement residue without replacement or retry; and submit each already-contracted complete oracle proposal to the independently owned protected-acceptance assay until one seals or the declared frontier is exhausted.")
+  ("postcondition" "Return one canonical RMN settlement binding the selected supplier, refused candidates, resource account, and protected capsule to the exact request; append it through the hired RWIL/RDF provider.")
+  ("refusal" "Refuse pinned suppliers, escaping or excessive context, missing shards, exhausted candidates, noncanonical bytes, implementation work, self-review, or customer usefulness acceptance."))

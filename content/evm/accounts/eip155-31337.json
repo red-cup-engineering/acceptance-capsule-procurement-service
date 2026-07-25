@@ -1,0 +1,28 @@
+{
+  "profile": "org.emsenn.evm.sovereign-enterprise-account.v3",
+  "enterprise": {
+    "nodeId": "acceptance-capsule-procurement-service",
+    "urn": "urn:ame:acceptance-capsule-procurement-service",
+    "enterpriseId": "0x10ac78f6893be6b048c1fa0a362d5decd7390aefec9c1532f696217792f3a07a"
+  },
+  "chain": {
+    "chainId": 31337,
+    "caip2": "eip155:31337"
+  },
+  "account": {
+    "address": "0x03871dcf70060da9799a5ea105761e455441a9d0",
+    "caip10": "eip155:31337:0x03871dcf70060da9799a5ea105761e455441a9d0"
+  },
+  "factory": {
+    "address": "0x7bf3cf1176c4a037d3ea2a5ff3d480359ac65ecd",
+    "userSalt": "0xabf1799963e92452993293ea457c0fd48a902c2872a3a5b07bef65ed4ce2866a"
+  },
+  "policy": {
+    "signer": "0x7679ececb680b660e35e09042d7129d9d2e3d263",
+    "custody": "settlement-private"
+  },
+  "deployment": {
+    "transaction": "0x1b8696491003b40980561ec3b58e916b26c6d7353f0d5dc8e06f10d8dffd9f1f",
+    "block": 1548
+  }
+}

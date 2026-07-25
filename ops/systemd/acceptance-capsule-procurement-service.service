@@ -1,0 +1,24 @@
+[Unit]
+Description=Sovereign acceptance capsule procurement A2A provider
+After=network-online.target rwil-rdf-services.service protected-acceptance-service.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/emsenn/info/lib/emsenn/services/561-group/services/red-cup-engineering/services/software-development-services-section/services/acceptance-capsule-procurement-service
+Environment=PORT=19842
+Environment=BASE_URL=http://127.0.0.1:19842
+Environment=RWIL_RDF_AGENT=http://127.0.0.1:19764/.well-known/agent-card.json
+Environment=INFERENCE_WORK_LOT_AGENT_CARD_URL=http://127.0.0.1:8796/.well-known/agent-card.json
+Environment=PROTECTED_ACCEPTANCE_AGENT_CARD_URL=http://127.0.0.1:19846/.well-known/agent-card.json
+Environment=AGENT_CARD_SIGNING_KEY=/home/emsenn/info/lib/emsenn/services/561-group/services/red-cup-engineering/services/software-development-services-section/services/acceptance-capsule-procurement-service/data/agent-card-signing/ed25519-private.pem
+Environment=AGENT_CARD_JWKS=/home/emsenn/info/lib/emsenn/services/561-group/services/red-cup-engineering/services/software-development-services-section/services/acceptance-capsule-procurement-service/content/agent-card-signing/jwks.json
+Environment=AGENT_CARD_SIGNING_KID=acceptance-capsule-procurement-service-ed25519
+ExecStart=/home/emsenn/.config/nvm/versions/node/v24.13.1/bin/node bin/server.mjs
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=default.target
