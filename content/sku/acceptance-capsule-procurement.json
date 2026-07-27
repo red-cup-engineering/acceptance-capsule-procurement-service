@@ -15,7 +15,7 @@
       "law": "ni:///sha-256;VOGEICie_nqY7Z8ZqtR0aDmYOF_qXLpWlT0rEetCTeo"
     },
     "operation": "procure-acceptance-capsule",
-    "description": "Procure competing oracle artifacts and settle one independently assayed protected acceptance capsule."
+    "description": "Procure executable oracle artifacts and settle a protected acceptance capsule from observed customer-owned behavior."
   },
   "denominations": [
     "relative-resolution-milliquanta-v1"

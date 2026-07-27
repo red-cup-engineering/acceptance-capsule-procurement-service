@@ -1,9 +1,9 @@
 {
-  "id": "ni:///sha-256;OEHolY2IUgjHL90ENmkEF4XJF5tLbkotigliPCYUGrU",
+  "id": "ni:///sha-256;dhTlsNyfzbN_OMJQnleQHqGOTRZhzNU8It05UdCgXkc",
   "type": "CapabilityCellManifest",
   "version": 2,
   "sku": "ni:///sha-256;h-ILEl26XaDbovYOPkdDAN110Vf_P1Flvhgub00Mh-A",
-  "capability": "ni:///sha-256;VOGEICie_nqY7Z8ZqtR0aDmYOF_qXLpWlT0rEetCTeo",
+  "capability": "ni:///sha-256;HKo2JxgPP56MRP3KEP-eoUmADb6R9vk1O7-BQwbrdtY",
   "controller": "did:pkh:eip155:5615610:0x114ae77905bfa25c5619e4f566b296db2e687ecd",
   "faces": {
     "github": {

@@ -23,7 +23,7 @@
     "@emsenn/a2a-rmn-task-client-service": "file:../../../web-services-section/services/a2a-services-section/services/a2a-rmn-task-client-service",
     "@emsenn/inference-work-lot-service": "file:../../../../../../../board-of-directors/services/executive-office/services/working-services-section/services/inference-work-lot-service",
     "@emsenn/protected-acceptance-service": "file:../protected-acceptance-service",
-    "@emsenn/rmn-semantic-conformance": "file:../../../../../lenticule-science/services/obsmetrological-services-section/services/rmn-semantic-conformance",
+    "@emsenn/rmn-semantic-conformance": "file:../../../model-services-section/services/relational-model-services-section/services/relational-model-notation-services-section/services/rmn-conformance-service",
     "@emsenn/rwil-rdf-services": "file:../../../../../lenticule-science/services/obsmetrological-services-section/services/rwil-rdf-services"
   },
   "x-agentic-metro-enterprise": {

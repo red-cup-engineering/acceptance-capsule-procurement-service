@@ -3,8 +3,6 @@ import { relative, resolve, sep } from "node:path";
 import { prepareProtectedAcceptance } from "@emsenn/protected-acceptance-service/client";
 import { dispatchBatch as defaultDispatch } from "./market-client.mjs";
 
-export const DEFAULT_ACCEPTANCE_SUPPLIER_LOTS = 2;
-
 function inside(root, requested) {
   const path = resolve(root, requested);
   if (path !== resolve(root) && !path.startsWith(`${resolve(root)}${sep}`)) throw new Error(`acceptance procurement path escapes admitted territory: ${requested}`);
@@ -19,11 +17,11 @@ function artifactSchema(artifactPath) {
         type: "object", required: ["path", "text"],
         properties: {
           path: { type: "string", const: artifactPath },
-          text: { type: "string", minLength: 100, maxLength: 30000 },
+          text: { type: "string", minLength: 1 },
         },
         additionalProperties: false,
       },
-      rationale: { type: "string", minLength: 20, maxLength: 1000 },
+      rationale: { type: "string", minLength: 1 },
     },
     additionalProperties: false,
   };
@@ -33,22 +31,35 @@ function validArtifactPath(path) {
   return typeof path === "string" && path.startsWith("union-acceptance/") && path.endsWith(".test.mjs");
 }
 
+function projectSupplierRecord(text) {
+  const source = String(text ?? "");
+  const candidates = [...source.matchAll(/```(?:json)?\s*([\s\S]*?)```/giu)].map((match) => match[1]);
+  candidates.push(source.trim());
+  for (const candidate of candidates) {
+    try {
+      const value = JSON.parse(candidate);
+      if (value && typeof value === "object" && !Array.isArray(value)) return value;
+    } catch { /* Continue to the next deterministic carrier. */ }
+  }
+  return null;
+}
+
 function supplierJob(input, { artifactPath, packet, id }) {
   return {
     id,
     workType: "software-engineering",
-    requiredCapabilities: ["software-engineering", "json-schema-output"],
+    requiredCapabilities: ["software-engineering"],
     difficulty: input.difficulty ?? 0.72,
-    maxTokens: input.maxTokens ?? 3600,
     ...(input.routingProfile ? { routingProfile: input.routingProfile } : {}),
     ...(input.extendedRoutingRationale ? { extendedRoutingRationale: input.extendedRoutingRationale } : {}),
     ...(input.considerationPolicy ? { considerationPolicy: input.considerationPolicy } : {}),
     ...(input.supplierExclusions?.length ? { excludeProviders: input.supplierExclusions } : {}),
     messages: [
-      { role: "system", content: "You are an acceptance-test supplier, independent from implementation suppliers. Produce the complete protected oracle artifact, not implementation code or commentary." },
+      { role: "system", content: "You supply an executable acceptance-test artifact. Reason freely, then conclude with one fenced JSON record containing artifact and rationale. Only the host-executed artifact can establish acceptance." },
       { role: "user", content: JSON.stringify(packet) },
     ],
-    outputContract: { format: "json", mode: "json_schema", schema: artifactSchema(artifactPath) },
+    outputContract: { format: "text" },
+    customerProjection: { type: "fenced-json-acceptance-artifact", schema: artifactSchema(artifactPath) },
   };
 }
 
@@ -107,13 +118,12 @@ export async function procureAcceptanceCapsule(input, {
       };
       return supplierJob(input, { artifactPath: path, packet, id: `${input.id}:acceptance-vector:${vector.id}` });
     });
-    const records = await dispatch(jobs, { concurrency: Math.min(jobs.length, Number(input.concurrency) || jobs.length), timeoutMs: input.providerTimeoutMs || 60000 });
+    const records = await dispatch(jobs);
     const byId = new Map(records.map((record) => [record.id, record])), artifacts = [], suppliers = [], refusals = [];
     for (let index = 0; index < vectors.length; index += 1) {
       const vector = vectors[index], job = jobs[index], record = byId.get(job.id);
       let supplied;
-      try { supplied = record?.text ? JSON.parse(record.text) : null; }
-      catch { supplied = null; }
+      supplied = projectSupplierRecord(record?.text);
       if (!supplied?.artifact || supplied.artifact.path !== vectorArtifactPaths[vector.id]) {
         refusals.push({ supplierJobId: job.id, endpoint: record?.endpoint || null, reason: record?.refusal?.reason || record?.refusal?.type || "invalid or missing vector artifact" });
         continue;
@@ -121,11 +131,7 @@ export async function procureAcceptanceCapsule(input, {
       artifacts.push(supplied.artifact);
       suppliers.push({ vectorId: vector.id, jobId: record.id, provider: record.provider || null, endpoint: record.endpoint || null, consideration: record.cost || null, rationale: supplied.rationale });
     }
-    if (artifacts.length !== vectors.length) {
-      const error = new Error(`vector-sharded acceptance procurement left unresolved shards: ${refusals.map((refusal) => `${refusal.supplierJobId}: ${refusal.reason}`).join("; ")}`);
-      error.code = "acceptance-supplier-market-exhausted";
-      throw error;
-    }
+    if (artifacts.length !== vectors.length) throw new Error(`vector-sharded acceptance procurement left unresolved shards: ${refusals.map((refusal) => `${refusal.supplierJobId}: ${refusal.reason}`).join("; ")}`);
     const capsule = await prepareAcceptance({ ...input, territory, artifacts, supplierProviders: suppliers.map(({ provider, endpoint }) => provider || endpoint).filter(Boolean) }, { ...(now ? { now } : {}) });
     return {
       type: "AcceptanceProcurementSettlement",
@@ -143,15 +149,14 @@ export async function procureAcceptanceCapsule(input, {
     };
   }
   const packet = { ...packetBase, artifactPath, testVectors: input.testVectors, priorReviewResidue: input.priorReviewResidue || null };
-  const supplierLots = Math.max(1, Math.min(Number(input.supplierLots) || DEFAULT_ACCEPTANCE_SUPPLIER_LOTS, 4));
-  const jobs = Array.from({ length: supplierLots }, (_, index) => supplierJob(input, { artifactPath, packet, id: `${input.id}:acceptance-supplier:${index + 1}` }));
-  const records = await dispatch(jobs, { concurrency: supplierLots, timeoutMs: input.providerTimeoutMs || 60000 });
+  const jobs = [supplierJob(input, { artifactPath, packet, id: `${input.id}:acceptance-artifact` })];
+  const records = await dispatch(jobs);
   const byId = new Map(records.map((record) => [record.id, record])), refusals = [];
   for (const job of jobs) {
     const record = byId.get(job.id);
     let supplied;
-    try { supplied = JSON.parse(record?.text); }
-    catch { refusals.push({ supplierJobId: record?.id || job.id, endpoint: record?.endpoint || null, reason: record?.refusal?.reason || record?.refusal?.type || "invalid supplier JSON" }); continue; }
+    supplied = projectSupplierRecord(record?.text);
+    if (!supplied) { refusals.push({ supplierJobId: record?.id || job.id, endpoint: record?.endpoint || null, reason: record?.refusal?.reason || record?.refusal?.type || "missing projected acceptance artifact" }); continue; }
     try {
       const capsule = await prepareAcceptance({
         id: input.id,
@@ -164,7 +169,6 @@ export async function procureAcceptanceCapsule(input, {
         artifacts: [supplied.artifact],
         supplierProviders: [record.provider || record.endpoint].filter(Boolean),
         ...(input.difficulty !== undefined ? { difficulty: input.difficulty } : {}),
-        ...(input.maxTokens !== undefined ? { maxTokens: input.maxTokens } : {}),
         ...(input.considerationPolicy !== undefined ? { considerationPolicy: input.considerationPolicy } : {}),
         ...(input.routingProfile !== undefined ? { routingProfile: input.routingProfile } : {}),
         ...(input.extendedRoutingRationale !== undefined ? { extendedRoutingRationale: input.extendedRoutingRationale } : {}),
@@ -187,7 +191,5 @@ export async function procureAcceptanceCapsule(input, {
       refusals.push({ supplierJobId: record.id, endpoint: record.endpoint || null, reason: error.message });
     }
   }
-  const error = new Error(`no acceptance supplier produced a sealable capsule: ${refusals.map((refusal) => `${refusal.endpoint || refusal.supplierJobId}: ${refusal.reason}`).join("; ")}`);
-  error.code = "acceptance-supplier-market-exhausted";
-  throw error;
+  throw new Error(`no acceptance supplier produced a sealable capsule: ${refusals.map((refusal) => `${refusal.endpoint || refusal.supplierJobId}: ${refusal.reason}`).join("; ")}`);
 }

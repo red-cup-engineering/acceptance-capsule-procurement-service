@@ -61,14 +61,14 @@ test("competing supplier output must become red, reviewed, and content-addressed
     command: "node --test union-acceptance/addition.test.mjs",
     testVectors: [{ id: "addition-vector", given: ["two and three"], when: "add runs", then: ["five"], forbidden: ["subtraction"] }],
     considerationPolicy: resolutionCreditPolicy(8),
-  }, { dispatch, prepareAcceptance: (input) => prepareAcceptanceCapsule(input, { assayOracle: async ({ oracle, manifest }) => { reviewedCandidate = { candidate: oracle, manifest }; return { accepted: true }; }, now: () => "2026-07-19T00:00:00.000Z" }) });
+  }, { dispatch, prepareAcceptance: (input) => prepareAcceptanceCapsule(input, { reviewOracle: async ({ oracle, manifest }) => { reviewedCandidate = { candidate: oracle, manifest }; return { accepted: true }; }, now: () => "2026-07-19T00:00:00.000Z" }) });
 
   assert.equal(settlement.supplier.endpoint, "supplier-one");
   assert.equal(settlement.capsule.redWitness.passed, false);
   assert.match(settlement.capsule.digest, /^ni:\/\/\/sha-256;/);
   assert.equal(settlement.resourceAccount.directInteractiveModelCalls, 0);
   assert.deepEqual(reviewedCandidate.candidate.providers, ["urn:ame:supplier-one"]);
-  assert.equal(reviewedCandidate.manifest.considerationPolicy, undefined);
+  assert.equal(reviewedCandidate.manifest.considerationPolicy.acceptableAlternatives[0].obligations[0].maximumAmount, 8);
   assert.ok(jobs.every((job) => job.considerationPolicy.acceptableAlternatives[0].obligations[0].maximumAmount === 8));
   assert.ok(jobs.every((job) => job.outputContract.mode === "json_schema"));
   assert.ok(jobs.every((job) => job.messages[1].content.includes("export const add")));
@@ -99,7 +99,7 @@ test("vector-sharded procurement aggregates independently supplied free artifact
         return { id: job.id, provider: `urn:ame:${vectorId}-supplier`, endpoint: `${vectorId}-supplier`, text: JSON.stringify({ artifact: { path: paths[vectorId], text: texts[vectorId] }, rationale: `Independently exercise ${vectorId}.` }), attempts: [{}] };
       });
     },
-    prepareAcceptance: (input) => prepareAcceptanceCapsule(input, { assayOracle: async () => ({ accepted: true }) }),
+    prepareAcceptance: (input) => prepareAcceptanceCapsule(input, { reviewOracle: async () => ({ accepted: true }) }),
   });
 
   assert.equal(jobs.length, 2);
@@ -110,7 +110,7 @@ test("vector-sharded procurement aggregates independently supplied free artifact
   assert.deepEqual(new Set(settlement.capsule.redWitness.executedVectorIds), new Set(vectors.map((vector) => vector.id)));
 });
 
-test("an exhausted fixed competition closes as one purchased attempt", async () => {
+test("selected supplier refusals remain in one fixed competition without replacement lots", async () => {
   const territory = mkdtempSync(join(tmpdir(), "union-acceptance-frontier-test-"));
   writeFileSync(join(territory, "calc.mjs"), "export const add = (a, b) => a - b;\n");
   const seen = [];
@@ -119,7 +119,7 @@ test("an exhausted fixed competition closes as one purchased attempt", async () 
     focusPaths: ["calc.mjs"], contextPaths: ["calc.mjs"], artifactPath: "union-acceptance/frontier.test.mjs",
     command: "node --test union-acceptance/frontier.test.mjs", supplierLots: 2,
     testVectors: [{ id: "supplier-frontier", given: ["one refused provider"], when: "the next lot clears", then: ["the refused provider is excluded"] }],
-  }, { dispatch: async (jobs) => { seen.push(jobs); return jobs.map((job, index) => ({ id: job.id, attempts: [{ provider: `urn:ame:dead-edge-${index}` }], refusal: { type: "selected-provider-refused" } })); } }), (error) => error.code === "acceptance-supplier-market-exhausted" && /no acceptance supplier/u.test(error.message));
+  }, { dispatch: async (jobs) => { seen.push(jobs); return jobs.map((job, index) => ({ id: job.id, attempts: [{ provider: `urn:ame:dead-edge-${index}` }], refusal: { type: "selected-provider-refused" } })); } }), /no acceptance supplier/);
   assert.equal(seen.length, 1);
   assert.equal(seen[0].length, 2);
   assert.ok(seen[0].every((job) => job.excludeProviders === undefined));
