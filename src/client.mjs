@@ -1,9 +1,9 @@
 import { randomUUID } from "node:crypto";
 import { Message, Role } from "@a2a-js/sdk";
-import { a2aResultParts, sendRmnTask } from "@emsenn/a2a-rmn-task-client-service";
-import { extractRmnPart, rmnPart } from "@emsenn/a2a-rmn-part-service";
-import { decodeSemantic, semanticBytes, semanticId } from "@emsenn/rmn-semantic-conformance";
-import { SOVEREIGN_CIRCUIT_INTERFACE_EXTENSION, circuitInterfaceFromAgentCard } from "@emsenn/rmn-semantic-conformance/hierarchical-circuit";
+import { a2aResultParts, sendRmnTask } from "@red-cup-engineering/a2a-rmn-task-client-service";
+import { extractRmnPart, rmnPart } from "@red-cup-engineering/a2a-rmn-part-service";
+import { decodeSemantic, semanticBytes, semanticId } from "@red-cup-engineering/rmn-semantic-conformance";
+import { SOVEREIGN_CIRCUIT_INTERFACE_EXTENSION, circuitInterfaceFromAgentCard } from "@red-cup-engineering/rmn-semantic-conformance/hierarchical-circuit";
 import { ACCEPTANCE_PROCUREMENT_LAW } from "./law.mjs";
 import { decodeReceipt, encodeRequest } from "./protocol.mjs";
 const parts = a2aResultParts;

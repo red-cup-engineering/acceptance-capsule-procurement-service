@@ -1,5 +1,5 @@
-import { semanticBytes, semanticId } from "@emsenn/rmn-semantic-conformance";
-import { decodeRelationalValue, encodeRelationalValue, RELATIONAL_VALUE_TYPE } from "@emsenn/rmn-semantic-conformance/relational-value";
+import { semanticBytes, semanticId } from "@red-cup-engineering/rmn-semantic-conformance";
+import { decodeRelationalValue, encodeRelationalValue, RELATIONAL_VALUE_TYPE } from "@red-cup-engineering/rmn-semantic-conformance/relational-value";
 import { procureAcceptanceCapsule } from "./procurement.mjs";
 export const PROFILE = "org.emsenn.software.acceptance-capsule-procurement.v1";
 export const PROVIDER_ACCOUNT = "eip155:31337:0x03871dcf70060da9799a5ea105761e455441a9d0";

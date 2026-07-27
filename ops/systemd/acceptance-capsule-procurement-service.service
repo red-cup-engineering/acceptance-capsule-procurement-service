@@ -1,6 +1,6 @@
 [Unit]
 Description=Sovereign acceptance capsule procurement A2A provider
-After=network-online.target rwil-rdf-services.service protected-acceptance-service.service
+After=network-online.target rwil-rdf-projection-service.service protected-acceptance-service.service
 Wants=network-online.target
 
 [Service]

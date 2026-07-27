@@ -1,5 +1,5 @@
 {
-  "name": "@emsenn/acceptance-capsule-procurement-service",
+  "name": "@red-cup-engineering/acceptance-capsule-procurement-service",
   "version": "1.0.0",
   "private": true,
   "type": "module",
@@ -18,13 +18,13 @@
   },
   "dependencies": {
     "@a2a-js/sdk": "1.0.0-beta.0",
-    "@emsenn/a2a-contracted-agent-service": "file:../../../web-services-section/services/a2a-services-section/services/a2a-contracted-agent-service",
-    "@emsenn/a2a-rmn-part-service": "file:../../../web-services-section/services/a2a-services-section/services/a2a-rmn-part-service",
-    "@emsenn/a2a-rmn-task-client-service": "file:../../../web-services-section/services/a2a-services-section/services/a2a-rmn-task-client-service",
-    "@emsenn/inference-work-lot-service": "file:../../../../../../../board-of-directors/services/executive-office/services/working-services-section/services/inference-work-lot-service",
-    "@emsenn/protected-acceptance-service": "file:../protected-acceptance-service",
-    "@emsenn/rmn-semantic-conformance": "file:../../../model-services-section/services/relational-model-services-section/services/relational-model-notation-services-section/services/rmn-conformance-service",
-    "@emsenn/rwil-rdf-services": "file:../../../../../lenticule-science/services/obsmetrological-services-section/services/rwil-rdf-services"
+    "@red-cup-engineering/a2a-contracted-agent-service": "2.0.0",
+    "@red-cup-engineering/a2a-rmn-part-service": "1.0.0",
+    "@red-cup-engineering/a2a-rmn-task-client-service": "1.1.0",
+    "@harmonious-union/inference-work-lot-service": "4.0.0",
+    "@red-cup-engineering/protected-acceptance-service": "1.0.0",
+    "@red-cup-engineering/rmn-semantic-conformance": "6.0.0",
+    "@lenticule-science/rwil-rdf-projection-service": "1.0.0"
   },
   "x-agentic-metro-enterprise": {
     "node-id": "acceptance-capsule-procurement-service",
@@ -42,5 +42,23 @@
         "legacyCompatibility": false
       }
     }
+  },
+  "x-semiotic-voxel": {
+    "profile": "org.harmonious-union.semiotic-voxel.v1",
+    "owner": "red-cup-engineering",
+    "kind": "actor",
+    "actor": "urn:ame:acceptance-capsule-procurement-service",
+    "operations": [
+      "procure-acceptance-capsule"
+    ],
+    "capabilities": [
+      {
+        "capability": "acceptance-capsule-procurement-service",
+        "faces": [
+          "procure-acceptance-capsule"
+        ]
+      }
+    ],
+    "package": "@red-cup-engineering/acceptance-capsule-procurement-service"
   }
 }

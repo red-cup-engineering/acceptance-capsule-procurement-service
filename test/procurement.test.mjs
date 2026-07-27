@@ -3,7 +3,7 @@ import { mkdtempSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
 import test from "node:test";
-import { resolutionCreditPolicy } from "@emsenn/inference-work-lot-service/consideration";
+import { resolutionCreditPolicy } from "@harmonious-union/inference-work-lot-service/consideration";
 import { DEFAULT_ACCEPTANCE_SUPPLIER_LOTS, procureAcceptanceCapsule } from "../src/procurement.mjs";
 import { prepareAcceptanceCapsule } from "../../protected-acceptance-service/src/acceptance-capsule.mjs";
 

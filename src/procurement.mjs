@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { relative, resolve, sep } from "node:path";
-import { prepareProtectedAcceptance } from "@emsenn/protected-acceptance-service/client";
+import { prepareProtectedAcceptance } from "@red-cup-engineering/protected-acceptance-service/client";
 import { dispatchBatch as defaultDispatch } from "./market-client.mjs";
 
 function inside(root, requested) {
