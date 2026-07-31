@@ -6,7 +6,7 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 import { Message, Role } from "@a2a-js/sdk";
 import { extractRmnPart, rmnPart } from "@red-cup-engineering/a2a-rmn-part-service";
 import { decodeSemantic, semanticBytes } from "@red-cup-engineering/rmn-semantic-conformance";
-import { createSettlementStore } from "@lenticule-science/rwil-rdf-projection-service/client";
+import { createSettlementStore } from "@lenticule-science/witness-journal-rdf-projection-service/client";
 import { ACCEPTANCE_PROCUREMENT_LAW } from "../src/law.mjs";
 import { decodeRequest, performRequest } from "../src/protocol.mjs";
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
