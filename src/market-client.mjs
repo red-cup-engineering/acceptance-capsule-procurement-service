@@ -1,4 +1,4 @@
-import { requestInferenceWorkBatch } from "@harmonious-union/inference-work-lot-service/client";
+import { requestInferenceWorkBatch } from "@red-cup-engineering/inference-work-lot-service/client";
 
 const ACTOR = "urn:ame:acceptance-capsule-procurement-service";
 
