@@ -1,6 +1,6 @@
 [Unit]
 Description=Sovereign acceptance capsule procurement A2A provider
-After=network-online.target rwil-rdf-projection-service.service protected-acceptance-service.service
+After=network-online.target witness-journal-rdf-projection-service.service protected-acceptance-service.service
 Wants=network-online.target
 
 [Service]
@@ -8,7 +8,7 @@ Type=simple
 WorkingDirectory=/home/emsenn/info/lib/emsenn/services/561-group/services/red-cup-engineering/services/software-services-section/services/acceptance-capsule-procurement-service
 Environment=PORT=19842
 Environment=BASE_URL=http://127.0.0.1:19842
-Environment=RWIL_RDF_AGENT=http://127.0.0.1:19764/.well-known/agent-card.json
+Environment=WITNESS_JOURNAL_RDF_AGENT=http://127.0.0.1:19764/.well-known/agent-card.json
 Environment=INFERENCE_WORK_LOT_AGENT_CARD_URL=https://bare-cedar-fog.561.group/a2a/inference-work-lot/.well-known/agent-card.json
 Environment=PROTECTED_ACCEPTANCE_AGENT_CARD_URL=http://127.0.0.1:19846/.well-known/agent-card.json
 Environment=AGENT_CARD_SIGNING_KEY=/home/emsenn/info/lib/emsenn/services/561-group/services/red-cup-engineering/services/software-services-section/services/acceptance-capsule-procurement-service/data/agent-card-signing/ed25519-private.pem

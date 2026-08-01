@@ -12,7 +12,7 @@ Environment=PORT=19861
 Environment=ACTIVITYPUB_ORIGIN=https://bare-cedar-fog.561.group
 Environment=ACTIVITYPUB_IDENTIFIER=acceptance-capsule-procurement
 Environment="ACTIVITYPUB_ACTOR_NAME=Acceptance Capsule Procurement Service"
-Environment="ACTIVITYPUB_ACTOR_SUMMARY=Procures competing oracle artifacts and settles one independently assayed protected acceptance capsule."
+Environment="ACTIVITYPUB_ACTOR_SUMMARY=Procures competing oracle artifacts and settles one attributable protected acceptance capsule with exact replay evidence."
 Environment=ACTIVITYPUB_CELL_ID=ni:///sha-256;aUDMyfos4XS3VHvLaFCPaELrOvpPBIY8NoZdtO6EjpE
 Environment=ACTIVITYPUB_CONTROLLER=did:pkh:eip155:5615610:0x114ae77905bfa25c5619e4f566b296db2e687ecd
 Environment=ACTIVITYPUB_KEYS_PATH=/home/emsenn/info/lib/emsenn/services/561-group/services/red-cup-engineering/services/software-services-section/services/acceptance-capsule-procurement-service/data/activitypub/keys.json
