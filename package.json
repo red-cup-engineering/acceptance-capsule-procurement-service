@@ -1,6 +1,6 @@
 {
   "name": "@red-cup-engineering/acceptance-capsule-procurement-service",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "type": "module",
   "description": "Sovereign die that procures competing oracle artifacts and settles one protected acceptance capsule.",
@@ -18,47 +18,12 @@
   },
   "dependencies": {
     "@a2a-js/sdk": "1.0.0-beta.0",
-    "@red-cup-engineering/a2a-contracted-agent-service": "2.0.4",
-    "@red-cup-engineering/a2a-rmn-part-service": "1.0.0",
-    "@red-cup-engineering/a2a-rmn-task-client-service": "1.1.0",
-    "@harmonious-union/inference-work-lot-service": "4.0.0",
-    "@red-cup-engineering/protected-acceptance-service": "1.0.0",
-    "@red-cup-engineering/rmn-semantic-conformance": "6.0.0",
-    "@lenticule-science/rwil-rdf-projection-service": "1.0.2"
-  },
-  "x-agentic-metro-enterprise": {
-    "node-id": "acceptance-capsule-procurement-service",
-    "actor": "urn:ame:acceptance-capsule-procurement-service",
-    "organizational-kind": "micro-enterprise",
-    "owners": [
-      "software-development-services-section"
-    ],
-    "admission": "one canonical RMN procurement request with bounded evidence, behavioral vectors, price bound, and no customer-selected supplier",
-    "refusal": "pinned supplier, unresolved vector shard, unbounded context, noncanonical carrier, failed protected-acceptance assay, implementation, or customer acceptance",
-    "operation-catalog": {
-      "procure-acceptance-capsule": {
-        "contract": "content/contracts/procure-acceptance-capsule.rml",
-        "protocol": "A2A 1.0",
-        "legacyCompatibility": false
-      }
-    }
-  },
-  "x-semiotic-voxel": {
-    "profile": "org.harmonious-union.semiotic-voxel.v1",
-    "owner": "red-cup-engineering",
-    "kind": "actor",
-    "actor": "urn:ame:acceptance-capsule-procurement-service",
-    "operations": [
-      "procure-acceptance-capsule"
-    ],
-    "capabilities": [
-      {
-        "capability": "acceptance-capsule-procurement-service",
-        "faces": [
-          "procure-acceptance-capsule"
-        ]
-      }
-    ],
-    "package": "@red-cup-engineering/acceptance-capsule-procurement-service"
+    "@red-cup-engineering/a2a-contracted-agent-service": "2.0.5",
+    "@red-cup-engineering/a2a-rmn-part-service": "1.0.1",
+    "@red-cup-engineering/a2a-rmn-task-client-service": "1.1.1",
+    "@harmonious-union/inference-work-lot-service": "4.0.1",
+    "@red-cup-engineering/protected-acceptance-service": "1.0.1",
+    "@red-cup-engineering/rmn-semantic-conformance": "6.0.2",
+    "@lenticule-science/witness-journal-rdf-projection-service": "1.0.3"
   }
 }
