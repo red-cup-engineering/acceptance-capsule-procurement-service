@@ -9,7 +9,7 @@
     "./client": "./src/client.mjs"
   },
   "scripts": {
-    "check": "node --check src/procurement.mjs && node --check src/market-client.mjs && node --check src/protocol.mjs && node --check src/client.mjs && node --check src/law.mjs && node --check bin/execute-a2a-task.mjs && node --check bin/server.mjs",
+    "check": "node --check src/procurement.mjs && node --check src/market-client.mjs && node --check src/protocol.mjs && node --check src/client.mjs && node --check bin/execute-a2a-task.mjs && node --check bin/server.mjs",
     "test": "node --test test/*.test.mjs",
     "verify": "npm run check && npm test"
   },

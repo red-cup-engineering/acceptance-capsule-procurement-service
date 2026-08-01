@@ -1,8 +1,8 @@
 import { semanticId } from "@red-cup-engineering/rmn-semantic-conformance";
-import { relationalRwilDocument } from "@lenticule-science/rwil-rdf-projection-service/client";
+import { relationalWitnessJournalDocument } from "@lenticule-science/witness-journal-rdf-projection-service/client";
 
 export function proofStateIdentity(value) {
-  return semanticId(relationalRwilDocument(value));
+  return semanticId(relationalWitnessJournalDocument(value));
 }
 
 export function supplierDesignId({ subject, lane = "coherent", residue = [] }) {

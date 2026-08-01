@@ -10,7 +10,7 @@ import {
 import { createHash } from "node:crypto";
 import { join, resolve } from "node:path";
 import { semanticId } from "@red-cup-engineering/rmn-semantic-conformance";
-import { relationalRwilDocument } from "@lenticule-science/rwil-rdf-projection-service/client";
+import { relationalWitnessJournalDocument } from "@lenticule-science/witness-journal-rdf-projection-service/client";
 
 const NI = /^ni:\/\/\/sha-256;[A-Za-z0-9_-]{43}$/u;
 
@@ -22,7 +22,7 @@ function plain(value, label) {
 }
 
 function eventIdentity(body) {
-  return semanticId(relationalRwilDocument(body));
+  return semanticId(relationalWitnessJournalDocument(body));
 }
 
 function subjectFileName(subject) {
@@ -49,7 +49,7 @@ function parseJournal(path, subject) {
  * Provider-local write head for kinetic proof pores.
  *
  * This extracts the gaming dialogue log, fabrication-run predecessor chain,
- * and scheduled-delivery fsync discipline.  RWIL projection is downstream of
+ * and scheduled-delivery fsync discipline.  WitnessJournal projection is downstream of
  * this journal: a projection obstruction can never erase or reopen a pore.
  */
 export function createProofPoreJournal({ root, now = () => new Date().toISOString() } = {}) {

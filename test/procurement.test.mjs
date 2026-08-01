@@ -52,7 +52,7 @@ test("competing supplier output must become red, reviewed, and content-addressed
   const dispatch = async (suppliedJobs) => {
     jobs = suppliedJobs;
     return suppliedJobs.map((job, index) => index === 0
-      ? { id: job.id, provider: "urn:ame:supplier-one", endpoint: "supplier-one", text: JSON.stringify({ artifact, rationale: "Exercise addition behavior independently from implementation." }), attempts: [{}] }
+      ? { id: job.id, provider: "urn:ame:supplier-one", endpoint: "supplier-one", text: JSON.stringify({ artifact, rationale: "Exercise addition behavior from exact declared inputs." }), attempts: [{}] }
       : { id: job.id, endpoint: "supplier-two", refusal: { type: "not-needed" }, attempts: [{}] });
   };
   const settlement = await procureAcceptanceCapsule({
@@ -74,7 +74,7 @@ test("competing supplier output must become red, reviewed, and content-addressed
   assert.ok(jobs.every((job) => job.messages[1].content.includes("export const add")));
 });
 
-test("vector-sharded procurement aggregates independently supplied free artifacts into one capsule", async () => {
+test("vector-sharded procurement aggregates attributable replayable free artifacts into one capsule", async () => {
   const territory = mkdtempSync(join(tmpdir(), "union-acceptance-shards-test-"));
   writeFileSync(join(territory, "calc.mjs"), "export const add = (a, b) => a - b;\nexport const multiply = (a, b) => a + b;\n");
   const vectors = [
@@ -96,7 +96,7 @@ test("vector-sharded procurement aggregates independently supplied free artifact
       jobs = suppliedJobs;
       return suppliedJobs.map((job) => {
         const vectorId = job.id.split(":").at(-1);
-        return { id: job.id, provider: `urn:ame:${vectorId}-supplier`, endpoint: `${vectorId}-supplier`, text: JSON.stringify({ artifact: { path: paths[vectorId], text: texts[vectorId] }, rationale: `Independently exercise ${vectorId}.` }), attempts: [{}] };
+        return { id: job.id, provider: `urn:ame:${vectorId}-supplier`, endpoint: `${vectorId}-supplier`, text: JSON.stringify({ artifact: { path: paths[vectorId], text: texts[vectorId] }, rationale: `Exercise ${vectorId} from its exact declared inputs.` }), attempts: [{}] };
       });
     },
     prepareAcceptance: (input) => prepareAcceptanceCapsule(input, { reviewOracle: async () => ({ accepted: true }) }),
