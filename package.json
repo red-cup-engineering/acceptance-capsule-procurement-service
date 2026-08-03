@@ -1,6 +1,6 @@
 {
   "name": "@red-cup-engineering/acceptance-capsule-procurement-service",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "private": true,
   "type": "module",
   "description": "Sovereign die that procures competing oracle artifacts and settles one protected acceptance capsule.",
@@ -23,7 +23,7 @@
     "@red-cup-engineering/a2a-rmn-task-client-service": "1.1.1",
     "@red-cup-engineering/inference-work-lot-service": "4.0.1",
     "@red-cup-engineering/protected-acceptance-service": "1.0.1",
-    "@red-cup-engineering/rmn-semantic-conformance": "6.0.2",
+    "@red-cup-engineering/semantic-content-identify-service": "0.2.2",
     "@lenticule-science/witness-journal-rdf-projection-service": "1.0.3"
   }
 }

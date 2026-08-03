@@ -5,7 +5,7 @@ import { tmpdir } from "node:os";
 import test from "node:test";
 import { resolutionCreditPolicy } from "@red-cup-engineering/inference-work-lot-service/consideration";
 import { DEFAULT_ACCEPTANCE_SUPPLIER_LOTS, procureAcceptanceCapsule } from "../src/procurement.mjs";
-import { prepareAcceptanceCapsule } from "../../protected-acceptance-service/src/acceptance-capsule.mjs";
+import { prepareAcceptanceCapsule } from "@red-cup-engineering/protected-acceptance-service/acceptance-capsule";
 
 test("acceptance procurement opens competing market lots and refuses customer-selected suppliers", async () => {
   assert.equal(DEFAULT_ACCEPTANCE_SUPPLIER_LOTS, 2);

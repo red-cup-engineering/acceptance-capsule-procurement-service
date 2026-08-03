@@ -1,8 +1,7 @@
-import { semanticId } from "@red-cup-engineering/rmn-semantic-conformance";
-import { relationalWitnessJournalDocument } from "@lenticule-science/witness-journal-rdf-projection-service/client";
+import { identify } from "./semantic-content.mjs";
 
 export function proofStateIdentity(value) {
-  return semanticId(relationalWitnessJournalDocument(value));
+  return identify(value, "acceptance-capsule-procurement.proof-state").id;
 }
 
 export function supplierDesignId({ subject, lane = "coherent", residue = [] }) {

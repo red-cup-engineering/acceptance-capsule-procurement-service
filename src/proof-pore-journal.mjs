@@ -9,10 +9,9 @@ import {
 } from "node:fs";
 import { createHash } from "node:crypto";
 import { join, resolve } from "node:path";
-import { semanticId } from "@red-cup-engineering/rmn-semantic-conformance";
-import { relationalWitnessJournalDocument } from "@lenticule-science/witness-journal-rdf-projection-service/client";
+import { identify } from "./semantic-content.mjs";
 
-const NI = /^ni:\/\/\/sha-256;[A-Za-z0-9_-]{43}$/u;
+const NI = /^ni:\/\/\/sha-256;[A-Za-z0-9_-]{42}[AEIMQUYcgkosw048]$/u;
 
 function plain(value, label) {
   if (!value || Object.getPrototypeOf(value) !== Object.prototype) {
@@ -22,7 +21,7 @@ function plain(value, label) {
 }
 
 function eventIdentity(body) {
-  return semanticId(relationalWitnessJournalDocument(body));
+  return identify(body, "acceptance-capsule-procurement.proof-pore-event").id;
 }
 
 function subjectFileName(subject) {
@@ -101,4 +100,3 @@ export function createProofPoreJournal({ root, now = () => new Date().toISOStrin
 
   return Object.freeze({ root: directory, read, append });
 }
-

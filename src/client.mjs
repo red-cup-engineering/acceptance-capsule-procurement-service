@@ -2,16 +2,15 @@ import { randomUUID } from "node:crypto";
 import { Message, Role } from "@a2a-js/sdk";
 import { a2aResultParts, sendRmnTask } from "@red-cup-engineering/a2a-rmn-task-client-service";
 import { extractRmnPart, rmnPart } from "@red-cup-engineering/a2a-rmn-part-service";
-import { decodeSemantic, semanticBytes, semanticId } from "@red-cup-engineering/rmn-semantic-conformance";
-import { SOVEREIGN_CIRCUIT_INTERFACE_EXTENSION, circuitInterfaceFromAgentCard } from "@red-cup-engineering/rmn-semantic-conformance/hierarchical-circuit";
-import { decodeReceipt, encodeRequest } from "./protocol.mjs";
+import { decodeReceipt, encodeRequest, receiptIdentity } from "./protocol.mjs";
+import { SOVEREIGN_CIRCUIT_INTERFACE_EXTENSION, providerAccountFromAgentCard } from "./sovereign-provider.mjs";
 const parts = a2aResultParts;
 export async function procureSoftwareAcceptanceCapsule(input, { agentCardUrl = process.env.ACCEPTANCE_CAPSULE_PROCUREMENT_AGENT_CARD_URL, signal, send = sendRmnTask } = {}) {
   if (!agentCardUrl) throw new Error("ACCEPTANCE_CAPSULE_PROCUREMENT_AGENT_CARD_URL is required");
   const request = encodeRequest({ kind: "AcceptanceCapsuleProcurementRequest", input });
   const message = Message.toJSON({ messageId: randomUUID(), contextId: "", taskId: "", role: Role.ROLE_USER, parts: [rmnPart(request.bytes, "acceptance-procurement-request.rmn.cbor")], metadata: {}, extensions: [], referenceTaskIds: [] });
   const exchange = await send({ agentUrl: agentCardUrl, extensions: [SOVEREIGN_CIRCUIT_INTERFACE_EXTENSION], requireSignature: true, message, ...(signal ? { signal } : {}) });
-  const output = extractRmnPart(parts(exchange.result)), term = decodeSemantic(output.bytes); if (!semanticBytes(term).equals(output.bytes) || term?.[0] !== "ascribe" || term.length !== 3) throw new Error("acceptance procurement provider returned noncanonical RMN");
-  const receipt = decodeReceipt(term[1], term[2]), provider = circuitInterfaceFromAgentCard(exchange.agentCard); if (receipt.provider !== provider.account || receipt.subject !== request.id) throw new Error("acceptance procurement receipt does not bind the contracted face and exact subject");
-  return Object.freeze({ ...receipt.settlement, procurementProvider: provider.account, procurementReceiptNi: semanticId(term) });
+  const output = extractRmnPart(parts(exchange.result));
+  const receipt = decodeReceipt(output.bytes), provider = providerAccountFromAgentCard(exchange.agentCard); if (receipt.provider !== provider || receipt.subject !== request.id) throw new Error("acceptance procurement receipt does not bind the contracted face and exact subject");
+  return Object.freeze({ ...receipt.settlement, procurementProvider: provider, procurementReceiptNi: receiptIdentity(receipt) });
 }
