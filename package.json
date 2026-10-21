@@ -25,5 +25,14 @@
     "@red-cup-engineering/protected-acceptance-service": "1.0.1",
     "@red-cup-engineering/semantic-content-identify-service": "0.2.2",
     "@lenticule-science/witness-journal-rdf-projection-service": "1.0.3"
+  },
+  "license": "MIT",
+  "funding": {
+    "type": "individual",
+    "url": "https://github.com/561-group/.github/blob/main/TIPS.md"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/red-cup-engineering/acceptance-capsule-procurement-service.git"
   }
 }
